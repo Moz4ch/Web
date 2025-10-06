@@ -1,11 +1,33 @@
 'use client';
 
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import useStudents from '@/hooks/useStudents';
 import type StudentsInterface from '@/types/StudentsInterface';
+import Student from './Student/Student';
 import styles from './Students.module.scss';
 
 const Students = (): React.ReactElement => {
   const { students, isLoading, error } = useStudents();
+  const queryClient = useQueryClient();
+
+  const deleteStudentMutation = useMutation({
+    mutationFn: async (id: number) => {
+      const response = await fetch(`/api/students/${id}`, {
+        method: 'DELETE',
+      });
+      if (!response.ok) {
+        throw new Error('Ошибка при удалении студента');
+      }
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['students'] });
+    },
+  });
+
+  const handleDelete = (id: number): void => {
+    deleteStudentMutation.mutate(id);
+  };
 
   if (isLoading) {
     return (
@@ -34,12 +56,11 @@ const Students = (): React.ReactElement => {
   return (
     <div className={styles.Students}>
       {students.map((student: StudentsInterface) => (
-        <div key={student.id} className={styles.studentItem}>
-          <h3>
-            {student.last_name} {student.first_name} {student.middle_name}
-          </h3>
-          <p>ID группы: {student.groupId}</p>
-        </div>
+        <Student
+          key={student.id}
+          student={student}
+          onDelete={handleDelete}
+        />
       ))}
     </div>
   );
