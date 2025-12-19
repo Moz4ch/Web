@@ -1,0 +1,20 @@
+@use '../../../styles/main';
+
+.main {
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 24px 26px 28px;
+  border-radius: 24px;
+  background: linear-gradient(145deg, rgba(15, 23, 42, 0.98), rgba(17, 24, 39, 0.96));
+  box-shadow:
+    0 24px 80px rgba(15, 23, 42, 0.55),
+    0 0 0 1px rgba(148, 163, 184, 0.25);
+  color: var(--color2);
+  backdrop-filter: blur(22px);
+
+  @media #{main.$mob} {
+    padding: main.vwMax(18px);
+    border-radius: 18px;
+  }
+}

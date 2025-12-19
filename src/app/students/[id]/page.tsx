@@ -20,7 +20,7 @@ const StudentPage = () => {
     <Page>
       <BackLink href="/students" text="<< список студентов" />
 
-      <h1 className="text-2xl font-bold mt-4">
+      <h1 className="page-title">
         {student.firstName} {student.lastName}
       </h1>
 

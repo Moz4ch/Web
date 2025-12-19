@@ -8,7 +8,7 @@ interface BackLinkProps {
 
 const BackLink: React.FC<BackLinkProps> = ({ href, text = '<< назад' }) => {
   return (
-    <Link href={href} className="text-blue-500 hover:underline">
+    <Link href={href} className="back-link">
       {text}
     </Link>
   );

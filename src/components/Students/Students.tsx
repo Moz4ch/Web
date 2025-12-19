@@ -27,14 +27,19 @@ const Students = (): React.ReactElement => {
 
   return (
     <div className={styles.Students}>
-      {students.map((student: StudentInterface) => (
-        <Student
-          key={student.id}
-          student={student}
-          onDelete={onDeleteHandler}
-        />
-      ))}
-      <AddStudent onAdd={onAddHandler} />
+      <div className={styles.list}>
+        {students.map((student: StudentInterface) => (
+          <Student
+            key={student.id}
+            student={student}
+            onDelete={onDeleteHandler}
+          />
+        ))}
+      </div>
+      <div className={styles.form}>
+        <h3>Добавить студента</h3>
+        <AddStudent onAdd={onAddHandler} />
+      </div>
     </div>
   );
 };
